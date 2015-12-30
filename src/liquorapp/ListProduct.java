@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TestDB;
+package liquorapp;
 
 /**
  *
@@ -17,9 +17,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class TestDB {
+public class ListProduct {
 
-    private static final String programName = "TestDB";
+    private static final String programName = "ListProduct";
     private static String dbDriver = null;
     private static String dbUrl = null;
     private static String selectSQL = null;
@@ -27,7 +27,7 @@ public class TestDB {
     /**
      * Constructor for CreateSql.
      */
-    public TestDB() {
+    public ListProduct() {
 
     }
 
@@ -35,12 +35,12 @@ public class TestDB {
      * Main method
      */
     public static void main(String[] args) {
-        TestDB cc = new TestDB();
+        ListProduct cc = new ListProduct();
         cc.createProductList(args);
     }
 
     private static void getProperties() {
-        ResourceBundle bundle = ResourceBundle.getBundle("TestDB.configuration");
+        ResourceBundle bundle = ResourceBundle.getBundle("liquorapp.configuration");
         dbDriver = bundle.getString("dbDriver");
         dbUrl = bundle.getString("dbUrl");
         selectSQL = bundle.getString("selectProductList");
