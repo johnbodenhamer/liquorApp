@@ -89,7 +89,7 @@ public class ListInventory {
                 partial_weight = rs.getDouble(3);
 
                 // Write out csv data
-                prtWrt.printf("%d,\"%s\",%d,%f\n", productID, brand, fullBottles, partial_weight);
+                prtWrt.printf("%d,%s,%d,%f\n", productID, brand, fullBottles, partial_weight);
                 lineCount++;
             }
             rs.close();

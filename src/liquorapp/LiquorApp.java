@@ -9,7 +9,7 @@ package liquorapp;
  *
  * @author ryan
  */
-public class LiquorApp {
+public abstract class LiquorApp {
 
     /**
      * @param args the command line arguments
