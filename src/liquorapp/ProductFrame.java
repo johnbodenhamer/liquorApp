@@ -7,6 +7,7 @@ package liquorapp;
 
 import business.Product;
 import business.ProductIO;
+import business.validator;
 import java.util.Map;
 import java.awt.event.*;
 
@@ -17,6 +18,7 @@ import java.awt.event.*;
 public class ProductFrame extends javax.swing.JFrame {
 
     Map<Integer, Product> productlist;
+    ProductIO prodio = new ProductIO();
 
     /**
      * Creates new form ProductFrame
@@ -26,8 +28,6 @@ public class ProductFrame extends javax.swing.JFrame {
     public ProductFrame(LiquorAppMenu mainFrame) {
         initComponents();
         this.mainFrame = mainFrame;
-        ProductIO prodio = new ProductIO();
-        productlist = prodio.createProductList();
         product_build();
     }
 
@@ -94,6 +94,11 @@ public class ProductFrame extends javax.swing.JFrame {
         });
 
         deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         productComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -293,14 +298,44 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
+ Product prd = new Product();
+ String eMessage;
+        boolean valid = false;
+        do {
+            if (!validator.isTextFieldNotEmpty(brandField)) {
+                break;
+            }
+            if (!validator.isTextFieldDouble(costField)) {
+                break;
+            }
+            if (!validator.isTextFieldDouble(fullWeightField)) {
+                break;
+            }
+            valid = true;
+        } while (1 == 0);
 
+        if (valid) { 
+            
+            prd.setBrand(brandField.getText());
+            prd.setCost(Double.parseDouble(costField.getText()));
+            prd.setFullWeight(Double.parseDouble(fullWeightField.getText()));
+            eMessage = prodio.insertProduct(prd);
+            product_build();
+            jLabelStatus.setText(eMessage);
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteButtonActionPerformed
     public void product_build() {
         Product prd;
+        productComboBox.removeAllItems();
+        productlist = prodio.createProductList();
         for (Map.Entry<Integer, Product> entry : productlist.entrySet()) {
             Integer productID = entry.getKey();
             prd = entry.getValue();
-            productComboBox.addItem(productID + " " + prd.getBrand());
+            productComboBox.addItem(String.format("%05d %s", productID,  prd.getBrand()));
 
         }
     }

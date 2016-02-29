@@ -38,6 +38,7 @@ public class LiquorAppMenu extends javax.swing.JFrame {
         inventoryButton = new javax.swing.JButton();
         salesButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        reportsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +60,13 @@ public class LiquorAppMenu extends javax.swing.JFrame {
             }
         });
 
+        reportsButton.setText("Reports");
+        reportsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -69,11 +77,12 @@ public class LiquorAppMenu extends javax.swing.JFrame {
                     .addComponent(exitButton)
                     .addComponent(salesButton)
                     .addComponent(inventoryButton)
-                    .addComponent(productButton))
+                    .addComponent(productButton)
+                    .addComponent(reportsButton))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {exitButton, inventoryButton, productButton, salesButton});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {exitButton, inventoryButton, productButton, reportsButton, salesButton});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,10 +93,14 @@ public class LiquorAppMenu extends javax.swing.JFrame {
                 .addComponent(inventoryButton)
                 .addGap(18, 18, 18)
                 .addComponent(salesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(reportsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(exitButton)
                 .addGap(28, 28, 28))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {exitButton, inventoryButton, productButton, reportsButton, salesButton});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,6 +129,12 @@ public class LiquorAppMenu extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_productButtonActionPerformed
+
+    private void reportsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsButtonActionPerformed
+        // TODO add your handling code here:
+        //inventory report showing total inventory?
+        //waste report vs sales
+    }//GEN-LAST:event_reportsButtonActionPerformed
 
  
     /**
@@ -158,6 +177,7 @@ public class LiquorAppMenu extends javax.swing.JFrame {
     private javax.swing.JButton inventoryButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton productButton;
+    private javax.swing.JButton reportsButton;
     private javax.swing.JButton salesButton;
     // End of variables declaration//GEN-END:variables
 }
