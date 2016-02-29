@@ -5,18 +5,23 @@
  */
 package liquorapp;
 
-import liquorapp.*;
+import business.*;
+import java.util.*;
+
 /**
  *
  * @author ryan
  */
 public class LiquorAppMenu extends javax.swing.JFrame {
 
+    Map<Integer, Product> productlist;
+
     /**
      * Creates new form LiquorAppMenu
      */
     public LiquorAppMenu() {
         initComponents();
+
     }
 
     /**
@@ -105,10 +110,14 @@ public class LiquorAppMenu extends javax.swing.JFrame {
 
     private void productButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productButtonActionPerformed
         // TODO add your handling code here:
-         ProductFrame f = new ProductFrame(this);
+        ProductFrame f = new ProductFrame(this);
+        
         f.showDialog();
+
+
     }//GEN-LAST:event_productButtonActionPerformed
 
+ 
     /**
      * @param args the command line arguments
      */

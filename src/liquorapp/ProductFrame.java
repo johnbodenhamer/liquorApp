@@ -5,27 +5,38 @@
  */
 package liquorapp;
 
+import business.Product;
+import business.ProductIO;
+import java.util.Map;
+import java.awt.event.*;
+
 /**
  *
  * @author ryan
  */
 public class ProductFrame extends javax.swing.JFrame {
 
+    Map<Integer, Product> productlist;
+
     /**
      * Creates new form ProductFrame
      */
-    
     LiquorAppMenu mainFrame;
-    public ProductFrame(LiquorAppMenu mainFrame){
+
+    public ProductFrame(LiquorAppMenu mainFrame) {
         initComponents();
-        this.mainFrame=mainFrame;        
+        this.mainFrame = mainFrame;
+        ProductIO prodio = new ProductIO();
+        productlist = prodio.createProductList();
+        product_build();
     }
-    public void showDialog(){
+
+    public void showDialog() {
         this.setVisible(true);
         mainFrame.setEnabled(false);
-        
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,13 +56,14 @@ public class ProductFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        updateButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        productComboBox = new javax.swing.JComboBox();
         nextButton = new javax.swing.JButton();
         previousButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
+        jLabelStatus = new javax.swing.JLabel();
 
         jLabel4.setText("jLabel1");
 
@@ -67,17 +79,46 @@ public class ProductFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Full Weight");
 
-        updateButton.setText("Update");
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         newButton.setText("Create New");
+        newButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Delete");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        productComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                productComboBoxItemStateChanged(evt);
+            }
+        });
+        productComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productComboBoxActionPerformed(evt);
+            }
+        });
 
         nextButton.setText(">");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
 
         previousButton.setText("<");
+        previousButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousButtonActionPerformed(evt);
+            }
+        });
 
         exitButton.setText("Exit");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +134,7 @@ public class ProductFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(productComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -107,7 +148,7 @@ public class ProductFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(updateButton)
+                                    .addComponent(saveButton)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(deleteButton))
                                 .addComponent(productIDField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
@@ -119,18 +160,20 @@ public class ProductFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(158, 158, 158)
                 .addComponent(exitButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(jLabelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {brandField, costField, fullWeightField, productIDField});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteButton, newButton, updateButton});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {deleteButton, newButton, saveButton});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(productComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(productIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,10 +197,12 @@ public class ProductFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newButton)
-                    .addComponent(updateButton)
+                    .addComponent(saveButton)
                     .addComponent(deleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exitButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(exitButton)
+                    .addComponent(jLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -180,9 +225,93 @@ public class ProductFrame extends javax.swing.JFrame {
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
         this.dispose();
-       mainFrame.setEnabled(true);
-       mainFrame.requestFocusInWindow();
+        mainFrame.setEnabled(true);
+        mainFrame.requestFocusInWindow();
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void productComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productComboBoxActionPerformed
+
+    private void productComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_productComboBoxItemStateChanged
+        // TODO add your handling code here:
+        Product prd;
+
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            String item = (String) evt.getItem();
+            String[] edata = item.split(" ");
+            System.out.println(edata[0]);
+            int i = Integer.parseInt(edata[0]);
+            prd = (Product) productlist.get(i);
+            DisplayValues(prd);
+
+        }
+    }//GEN-LAST:event_productComboBoxItemStateChanged
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        // TODO add your handling code here:
+        Product prd;
+        int currentIndex = productComboBox.getSelectedIndex();
+        if (currentIndex == productComboBox.getItemCount() - 1) {
+            jLabelStatus.setText("End of Record");
+        } else {
+            currentIndex++;
+            productComboBox.setSelectedIndex(currentIndex);
+            String item = (String) productComboBox.getItemAt(currentIndex);
+            String[] prodData = item.split(" ");
+            int i = Integer.parseInt(prodData[0]);
+            prd = (Product) productlist.get(i);
+            DisplayValues(prd);
+        }
+    }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
+        // TODO add your handling code here:        
+        Product prd;
+        int currentIndex = productComboBox.getSelectedIndex();
+        if (currentIndex <= 0) {
+            jLabelStatus.setText("Beginning of Record");
+        } else {
+            currentIndex--;
+            productComboBox.setSelectedIndex(currentIndex);
+            String item = (String) productComboBox.getItemAt(currentIndex);
+            String[] prodData = item.split(" ");
+            int i = Integer.parseInt(prodData[0]);
+            prd = (Product) productlist.get(i);
+            DisplayValues(prd);
+        }
+
+    }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
+        // TODO add your handling code here:
+        brandField.setText(" ");
+        productIDField.setText(" ");
+        costField.setText(" ");
+        fullWeightField.setText(" ");
+    }//GEN-LAST:event_newButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_saveButtonActionPerformed
+    public void product_build() {
+        Product prd;
+        for (Map.Entry<Integer, Product> entry : productlist.entrySet()) {
+            Integer productID = entry.getKey();
+            prd = entry.getValue();
+            productComboBox.addItem(productID + " " + prd.getBrand());
+
+        }
+    }
+
+    public void DisplayValues(Product prd) {
+        productIDField.setText(Integer.toString(prd.getProductID()));
+        brandField.setText(prd.getBrand());
+        costField.setText(Double.toString(prd.getCost()));
+        fullWeightField.setText(Double.toString(prd.getFullWeight()));
+        jLabelStatus.setText(" ");
+    }
 
     /**
      * @param args the command line arguments
@@ -213,10 +342,10 @@ public class ProductFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         //java.awt.EventQueue.invokeLater(new Runnable() {
-         //   public void run() {
-           //     new ProductFrame().setVisible(true);
-            //}
-       // });
+        //   public void run() {
+        //     new ProductFrame().setVisible(true);
+        //}
+        // });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -225,17 +354,18 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton exitButton;
     private javax.swing.JTextField fullWeightField;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton newButton;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton previousButton;
+    private javax.swing.JComboBox productComboBox;
     private javax.swing.JTextField productIDField;
-    private javax.swing.JButton updateButton;
+    private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
 }
