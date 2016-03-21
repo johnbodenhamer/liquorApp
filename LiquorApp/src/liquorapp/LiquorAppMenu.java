@@ -50,8 +50,18 @@ public class LiquorAppMenu extends javax.swing.JFrame {
         });
 
         inventoryButton.setText("Inventory");
+        inventoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventoryButtonActionPerformed(evt);
+            }
+        });
 
         salesButton.setText("Sales");
+        salesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salesButtonActionPerformed(evt);
+            }
+        });
 
         exitButton.setText("Exit");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +144,24 @@ public class LiquorAppMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         //inventory report showing total inventory?
         //waste report vs sales
+        ReportFrame frame = new ReportFrame();
+        
+        frame.show();
     }//GEN-LAST:event_reportsButtonActionPerformed
+
+    private void inventoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryButtonActionPerformed
+        // TODO add your handling code here:
+        InventoryFrame2 frame = new InventoryFrame2();
+        
+        frame.show();
+    }//GEN-LAST:event_inventoryButtonActionPerformed
+
+    private void salesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesButtonActionPerformed
+        // TODO add your handling code here:
+        SaleFrame frame = new SaleFrame();
+        
+        frame.show();
+    }//GEN-LAST:event_salesButtonActionPerformed
 
  
     /**
