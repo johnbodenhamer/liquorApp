@@ -327,6 +327,18 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
+        String eMessage;
+        Integer tempProductID;
+        
+        //convert text field to integer, pass to SQL
+        tempProductID = Integer.parseInt(productIDField.getText());
+        eMessage = prodio.deleteProduct(tempProductID);
+        productComboBox.removeAllItems();
+        brandField.setText(" ");
+        costField.setText(" ");
+        fullWeightField.setText(" ");
+        product_build();
+        jLabelStatus.setText(eMessage);
     }//GEN-LAST:event_deleteButtonActionPerformed
     public void product_build() {
         Product prd;

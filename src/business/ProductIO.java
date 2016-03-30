@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 /**
@@ -106,6 +101,39 @@ public class ProductIO {
             e.printStackTrace();
         }
         eMessage = ("Update successful");
+        return eMessage;
+    }
+    public String deleteProduct(Integer productID) {
+        Connection dbConn;
+
+        String eMessage = null;
+        String brand;
+
+        // get properties
+        ResourceBundle bundle = ResourceBundle.getBundle(configProperties);
+        dbDriver = bundle.getString("dbDriver");
+        dbUrl = bundle.getString("dbUrl");
+        String deleteSQL = bundle.getString("deleteProduct");
+
+        // get database connection to the report log
+        dbConn = openDatabase(dbDriver, dbUrl);
+        if (dbConn == null) {
+            eMessage = ("Can't connect to database");
+            return eMessage;
+        }
+
+        try {
+
+            // prepare statement
+            //delete from product where brand = ?; 
+            PreparedStatement ps = dbConn.prepareStatement(deleteSQL);
+            ps.setInt(1, productID);
+            ps.executeUpdate();
+            dbConn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        eMessage = ("Delete successful");
         return eMessage;
     }
     /**
