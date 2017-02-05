@@ -1,3 +1,4 @@
+--load the sales table
 LOAD DATA LOCAL INFILE '/Users/ryan/Documents/Projects/LiquorApp/misc/sales.csv' INTO TABLE  `liquor_db`.`sales` 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"' 

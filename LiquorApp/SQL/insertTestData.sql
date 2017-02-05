@@ -1,4 +1,4 @@
-— insert values into inventory table
+— insert values into inventory 
 insert into inventory (productID,tstamp, fullBottles, partialWeight) 
 values(3,now() - Interval 48 hour,1,706);
 insert into inventory (productID, tstamp, fullBottles, partialWeight) 
